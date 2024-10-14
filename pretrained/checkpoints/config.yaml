@@ -1,0 +1,69 @@
+gpu: cuda:0
+batch_size: 384                           # batch size
+epochs: 50                                # total number of epochs
+warmup: 10                                # warm-up epochs
+
+eval_every_n_epochs: 1                    # validation frequency
+resume_from: None                         # resume training
+log_every_n_steps: 10                     # print training log frequency
+fp16_precision: True
+
+optim:
+  init_lr: 0.00001                        # initial learning rate for Adam optimizer
+  weight_decay: 0.000005                   # weight decay for Adam for Adam optimizer
+  type: Adam
+
+model:
+  num_layer: 5                            # number of graph conv layers
+  emb_dim: 200                            # embedding dimension in graph conv layers
+  feat_dim: 512                           # output feature dimention
+  dropout: 0.05                           # dropout ratio
+  pool: mean                              # readout pooling (i.e., mean/max/add)
+
+dataset:
+  feat_dim: 512                           # output feature dimention
+  num_workers: 12                         # dataloader number of workers
+  valid_size: 0.05                        # ratio of validation data
+
+loss:
+  temperature: 0.1                        # temperature of (weighted) NT-Xent loss
+  use_cosine_similarity: True             # whether to use cosine similarity in (weighted) NT-Xent loss (i.e. True/False)
+  lambda_1: 0.5                           # $\lambda_1$ to control faulty negative mitigation
+  lambda_2: 0.5                           # $\lambda_2$ to control fragment contrast
+
+OUTPUT_DIR: '../bbbp'
+TAG: 'default'
+SEED: 2021
+NUM_FOLDS: 10
+HYPER: True
+NUM_ITERS: 30
+
+
+DATA:
+  BATCH_SIZE: 64
+  DATASET: 'bbbp'
+  DATA_PATH: './data/bbbp/'
+  TASK_TYPE: 'classification'
+  METRIC: 'auc'
+  SPLIT_TYPE: 'random'
+
+
+MODEL:
+  F_ATT: False
+  F_ATT2: False
+  BRICS: False
+  HID: 64
+
+
+LOSS:
+  FL_LOSS: False
+  CL_LOSS: False
+
+
+TRAIN:
+  EARLY_STOP: 1
+  MAX_EPOCHS: 10
+  OPTIMIZER:
+    TYPE: 'adam'
+  LR_SCHEDULER:
+    TYPE: 'reduce'
