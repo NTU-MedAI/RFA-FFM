@@ -1,0 +1,35 @@
+OUTPUT_DIR: './sider'
+TAG: 'default'
+SEED: 2024
+NUM_FOLDS: 10
+HYPER: True
+HYPER_REMOVE: None
+NUM_ITERS: 30
+
+
+DATA:
+  BATCH_SIZE: 8
+  DATASET: 'sider'
+  DATA_PATH: './SIDER/'
+  TASK_TYPE: 'classification'
+  METRIC: 'auc'
+  SPLIT_TYPE: 'random'
+  
+
+MODEL:
+  F_ATT: False
+  BRICS: False
+  
+
+LOSS:
+  FL_LOSS: False
+  CL_LOSS: False
+
+
+TRAIN:
+  EARLY_STOP: 2
+  MAX_EPOCHS: 200
+  OPTIMIZER:
+    TYPE: 'adam'
+  LR_SCHEDULER:
+    TYPE: 'reduce'
